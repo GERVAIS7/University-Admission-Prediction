@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admission Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='dashboard.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+             University Admission Analytics Dashboard
+        </h1>
+
+        <p class="subtitle">
+            Machine Learning Admission Prediction System
+        </p>
+
+        <!-- STATISTICS CARDS -->
+
+        <div class="cards">
+
+            <div class="card">
+                <h2>{{ total_students }}</h2>
+                <p>Total Students</p>
+            </div>
+
+            <div class="card">
+                <h2>{{ admitted_students }}</h2>
+                <p>Admitted</p>
+            </div>
+
+            <div class="card">
+                <h2>{{ rejected_students }}</h2>
+                <p>Rejected</p>
+            </div>
+
+            <div class="card">
+                <h2>{{ accuracy }}%</h2>
+                <p>Model Accuracy</p>
+            </div>
+
+        </div>
+
+        <!-- CHARTS -->
+
+        <div class="charts">
+
+            <div class="chart-card">
+
+                <h2>Admission Distribution</h2>
+
+                <canvas id="admissionChart"></canvas>
+
+            </div>
+
+            <div class="chart-card">
+
+                <h2>Model Comparison</h2>
+
+                <canvas id="modelChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <!-- MODEL INSIGHTS -->
+
+        <div class="summary">
+
+            <h2>Model Insights</h2>
+
+            <div class="insights">
+
+                <div class="insight-box">
+                    <span>Best Performing Model</span>
+                    <h3>Random Forest</h3>
+                    <p>100% Accuracy</p>
+                </div>
+
+                <div class="insight-box">
+                    <span>Admission Rate</span>
+                    <h3>12.6%</h3>
+                    <p>126 out of 1000 students admitted</p>
+                </div>
+
+                <div class="insight-box">
+                    <span>Rejection Rate</span>
+                    <h3>87.4%</h3>
+                    <p>874 out of 1000 students rejected</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <a href="/" class="home-btn">
+            ← Back to Predictor
+        </a>
+
+    </div>
+
+    <script>
+
+        // PIE CHART
+
+        new Chart(
+            document.getElementById("admissionChart"),
+            {
+                type: "pie",
+
+                data: {
+                    labels: [
+                        "Admitted (12.6%)",
+                        "Rejected (87.4%)"
+                    ],
+
+                    datasets: [{
+                        data: [126, 874],
+
+                        backgroundColor: [
+                            "#64748B",
+                            "#334155"
+                        ],
+
+                        borderWidth: 0
+                    }]
+                },
+
+                options: {
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+
+                                color: "white",
+
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+
+
+        // MODEL COMPARISON
+
+        new Chart(
+            document.getElementById("modelChart"),
+            {
+                type: "bar",
+
+                data: {
+
+                    labels: [
+                        "Logistic Regression",
+                        "Decision Tree",
+                        "Random Forest"
+                    ],
+
+                    datasets: [{
+
+                        label: "Accuracy (%)",
+
+                        data: [
+                            93,
+                            100,
+                            100
+                        ],
+
+                        backgroundColor: [
+                            "#9CA3AF",
+                            "#6B7280",
+                            "#4B5563"
+                        ]
+                    }]
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+                                color: "white"
+                            }
+                        }
+                    },
+
+                    scales: {
+
+                        x: {
+
+                            ticks: {
+                                color: "white"
+                            },
+
+                            grid: {
+                                color: "rgba(255,255,255,.08)"
+                            }
+                        },
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            max: 100,
+
+                            ticks: {
+                                color: "white"
+                            },
+
+                            grid: {
+                                color: "rgba(255,255,255,.08)"
+                            }
+                        }
+                    }
+                }
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

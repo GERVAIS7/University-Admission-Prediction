@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>University Admission Prediction System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- Floating Icons -->
+
+    <div class="floating-icon icon1">🎓</div>
+    <div class="floating-icon icon2">📚</div>
+    <div class="floating-icon icon3">🏆</div>
+
+    <!-- Background Glow -->
+
+    <div class="background-shapes"></div>
+
+    <!-- Main Card -->
+
+    <div class="main-card">
+
+        <!-- Header -->
+
+        <div class="header">
+
+            <div class="logo-circle">
+                🎓
+            </div>
+
+            <h1> University Admission System</h1>
+
+            <p>
+                Machine Learning Powered Student Admission Prediction
+            </p>
+
+        </div>
+
+        <!-- Statistics -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>1000</h3>
+                <p>Student Records</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>100%</h3>
+                <p>Model Accuracy</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>RF</h3>
+                <p>Random Forest</p>
+            </div>
+
+        </div>
+
+        <!-- Section Title -->
+
+        <div class="section-title">
+
+            <h2>Student Academic Profile</h2>
+
+            <p>
+                Enter student information to evaluate admission eligibility.
+            </p>
+
+        </div>
+
+        <!-- Form -->
+
+        <form action="/predict" method="POST">
+
+            <div class="form-grid">
+
+                <div class="input-box">
+
+                    <label>GPA (0 - 4.0)</label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        max="4"
+                        name="gpa"
+                        placeholder="Enter GPA"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Entrance Score (0 - 100)</label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        name="entrance_score"
+                        placeholder="Enter Score"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Extracurricular Activities (0 - 10)</label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        name="activities"
+                        placeholder="Enter Activities"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <label>Recommendation Score (0 - 10)</label>
+
+                    <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        name="recommendation"
+                        placeholder="Enter Recommendation"
+                        required>
+
+                </div>
+
+            </div>
+
+            <a href="/dashboard" class="dashboard-btn">
+                View Dashboard
+            </a>
+
+            <button class="predict-btn">
+                Predict Admission
+            </button>
+
+        </form>
+
+        <!-- Prediction Result -->
+
+        {% if prediction_text %}
+
+        <div class="prediction-card animate-result">
+
+            <h2>Admission Decision</h2>
+
+            <div class="
+                {% if prediction_text == 'ADMITTED' %}
+                    status-admitted
+                {% else %}
+                    status-rejected
+                {% endif %}
+            ">
+                {{ prediction_text }}
+            </div>
+
+            <div class="evaluation-summary">
+
+                <h3>Student Evaluation Summary</h3>
+
+                <div class="summary-row">
+                    <span>GPA</span>
+                    <strong>{{ student_data.gpa }} / 4.0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Entrance Score</span>
+                    <strong>{{ student_data.entrance_score }} / 100</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Activities</span>
+                    <strong>{{ student_data.activities }} / 10</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Recommendation</span>
+                    <strong>{{ student_data.recommendation }} / 10</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+        <!-- Footer -->
+
+        <footer>
+
+            Developed by Gervais <br>
+
+            Machine Learning Project • 2025
+
+        </footer>
+
+    </div>
+
+</body>
+
+</html>
